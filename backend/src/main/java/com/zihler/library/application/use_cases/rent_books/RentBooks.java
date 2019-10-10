@@ -21,7 +21,7 @@ public class RentBooks implements IRentBooks {
     @Override
     public void executeWith(RentBooksInput input, RentalRecordPresenter presenter) {
         Customer customer = this.customerRepository.findByUsername(input.getCustomerName());
-        List<Rental> rentals = input.getRentals();
+        List<Rental> rentals = input.createRentals();
         RentalRecord rentalRecord = RentalRecord.from(customer, rentals);
         RentalRecordDocument rentalRecordDocument = rentalRecord.asDocument();
         presenter.present(rentalRecordDocument);

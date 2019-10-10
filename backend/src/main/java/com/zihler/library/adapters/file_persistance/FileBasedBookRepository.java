@@ -3,6 +3,7 @@ package com.zihler.library.adapters.file_persistance;
 import com.zihler.library.application.outbound_ports.persistence.BookRepository;
 import com.zihler.library.domain.entities.Book;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class FileBasedBookRepository implements BookRepository {
     private final List<Book> books;
 

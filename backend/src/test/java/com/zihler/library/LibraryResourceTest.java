@@ -1,5 +1,8 @@
 package com.zihler.library;
 
+import com.zihler.library.adapters.controllers.FeeCalculationService;
+import com.zihler.library.adapters.file_persistance.FileBasedBookRepository;
+import com.zihler.library.adapters.in_memory_persistence.InMemoryCustomerRepository;
 import com.zihler.library.adapters.rest.LibraryResource;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +32,7 @@ public class LibraryResourceTest {
     public void setup() throws IOException {
         DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
 
-        libraryResource = new LibraryResource(resourceLoader);
+        libraryResource = new LibraryResource(new FeeCalculationService(new FileBasedBookRepository(resourceLoader),new InMemoryCustomerRepository()));
         mvc = MockMvcBuilders.standaloneSetup(libraryResource)
                 .build();
     }

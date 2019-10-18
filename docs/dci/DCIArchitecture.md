@@ -87,4 +87,14 @@ Methods of the object role can invoke methods of the domain class into which the
 
 Each object can take on all object roles for all scenarios it is designed to support
 
-### Context classes: One per Use Case
+### Context classes: One per Use Case (9.3.4)
+1 context class for each use case and for each habit (not only per use case _scenario_)
+
+A context knows the object roles that are involved in any given use case.
+
+A context's implementation holds the methodless object role identifiers declared in terms of their methodless object role types (interfaces/abstract classes)
+
+For any use case scenario invocation, object roles must be bound to objects
+
+
+

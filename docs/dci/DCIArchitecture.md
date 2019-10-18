@@ -8,7 +8,7 @@ and the program actually executing in the computer.
 
 ##DCI in a Nutshell
 
-![dci_overview](dci.PNG "DCI overview")
+![dci_overview](images/dci.PNG "DCI overview")
 
 Encapsule the "what the system does code" on a "per-scenario" basis.
 

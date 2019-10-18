@@ -43,20 +43,37 @@ What the system does: methodless object roles and methodful object roles
 
 ####Methodless Object Roles
 Roles == Identifiers == Methodless Object Role Type == Interface
-Roles: Identifiers in the Programming Language
+Roles: Identifiers in the Programming Language.
 
 Identifiers may be pointers to objects to which the role is bound, function invokations, etc.
 
-Identifiers can be typed: types are _methodless object role types_
+Identifiers can be typed: types are _methodless object role types_.
 
 Identifiers are interface to the role: collected responsibilities (Java interfaces e.g.)
-Method are not filled with code
+Method are not filled with code.
 
 Object roles and types are the functional architecture of the system:
 document/codify the contracts of how system parts interact to accomplish an end user's goal.
-They are _form_, not _structure_
+They are _form_, not _structure_.
 
 ####Methodful Object Roles
 Java Interfaces/abstract base classes
-Methods are filled with code
 
+Methods are filled with code.
+
+What the system _does_.
+
+Use Cases and Habits.
+
+They are _structure_, not _form_.
+
+Goal: separate use case scenario (behaviour) from domain objects. 
+
+Methodless role types often act as base type for the methodful roles.
+
+Objects roles capture what domain objects do. 
+Need to combine domain objects (what the system is) with scenario (what the system does).
+This can be done by injecting the scenario code into the classes from which those objects were created.
+This can be done with Traits.
+
+####Tricks with traits

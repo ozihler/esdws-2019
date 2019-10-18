@@ -6,7 +6,7 @@ These tasks are captured by use cases.
 DCI minimises any gap existing between the programmer's mental model 
 and the program actually executing in the computer.
 
-##DCI in a Nutshell
+## DCI in a Nutshell
 
 ![dci_overview](images/dci.PNG "DCI overview")
 
@@ -33,15 +33,15 @@ invoking the _object role method_ that initiates the use cases (trigger).
 Each object can play several object roles, and a given object role may be played by a 
 combination of several objects together.
 
-##Overview of DCI
+## Overview of DCI
 Goal of DCI: separate system state from system behaviour code
 
-###Forgotten parts of the user mental model
+### Forgotten parts of the user mental model
 What the system is: classes and objects
 What the system does: methodless object roles and methodful object roles
 [!ocmm](images/dci_co_or.PNG "classes objects roles")
 
-####Methodless Object Roles
+#### Methodless Object Roles
 Roles == Identifiers == Methodless Object Role Type == Interface
 Roles: Identifiers in the Programming Language.
 
@@ -56,7 +56,7 @@ Object roles and types are the functional architecture of the system:
 document/codify the contracts of how system parts interact to accomplish an end user's goal.
 They are _form_, not _structure_.
 
-####Methodful Object Roles
+#### Methodful Object Roles
 Java Interfaces/abstract base classes
 
 Methods are filled with code.
@@ -76,4 +76,15 @@ Need to combine domain objects (what the system is) with scenario (what the syst
 This can be done by injecting the scenario code into the classes from which those objects were created.
 This can be done with Traits.
 
-####Tricks with traits
+#### Tricks with traits
+Trait = Holder of stateless methods (mix-ins), Java: Default methods
+
+Trait acts as object role, domain class has it injected/implements it
+
+For methodful object roles
+
+Methods of the object role can invoke methods of the domain class into which they are injected
+
+Each object can take on all object roles for all scenarios it is designed to support
+
+### Context classes: One per Use Case

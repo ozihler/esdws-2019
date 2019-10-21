@@ -47,5 +47,9 @@ lower job satisfaction
 ** no special place, just part of the development team
 * Where are integration tests? Somewhere between acceptance/unit tests, more technical than acceptance. 
 Implemented as a separate phase in the continuous delivery pipeline
+* The testing pyramid
+** Higher up: slower
+** Acceptance test should *not* show 100% coverage (should be feature-oriented, verify selected scenarios)
+** Unit tests: cheap and fast --> strive for 100% coverage
 
-## The testing pyramid
+## Configuration Management

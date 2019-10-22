@@ -16,7 +16,7 @@ lower job satisfaction
 * Goal: change each phase of the traditional delivery process into a sequence of scripts (automated deployment pipeline/CD pipeline)
 ** Benefits: fast delivery, fast feedback cycle, low-risk releases, flexible release options
 
-## The automated deployment pipeline
+# The automated deployment pipeline
 * Goal: automate as much as possible of the 3 phases (dev, UAT, Ops)
 * Code Change 
 --> Continuous Integration (code integrates together) 
@@ -53,3 +53,45 @@ Implemented as a separate phase in the continuous delivery pipeline
 ** Unit tests: cheap and fast --> strive for 100% coverage
 
 ## Configuration Management
+* Tracking/controlling changes in SW and its environment
+* Prepares/installs tools, scales # of service instances/distribution, infrastructure inventory, deployment tasks 
+
+# Continuous Delivery Prerequisites
+## Organisational Prerequisites
+* DevOps culture: Team is responsible for dev, QA, and Ops
+** Productivity is not lost due to automation of QA/Ops steps
+** Starts usually with a team that has 4 devs, 1 op, 1 QA, sitting close together
+## Client/Product Owner in the Process
+* traditionally: define requirements, answer questions, attend demos, take part in UAT
+* CD: no UAT, client writes acceptance tests (need to be more technical)
+** Requirements/User Stories can/should have some acceptance tests attached
+## Business Decisions
+* Business usually sets release schedule
+* Feature Toggles/manual pipeline steps may help
+* Continuous Deployment: each commit passing tests is deployed
+* Continuous Delivery: each commit is a release candidate (release may be manual step)
+## Technical & Development Prerequisites
+Requirements:
+* automated build, test, package, deploy operations: all need to be automatable
+* Quick pipeline execution: 5 - 15 mins
+* QUick failure recovery
+* Zero-downtime deployment: release many times a day, not possible to be down
+* Trunk-based development: devs check into master branch regularly (else integration / releases are rare)
+* More on process: Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation (Jez Humble/David Farley)
+# Building CD Process
+## Tools
+* Any tool can be replaced by another tool
+* Docker: containerisation (package app in env-agnostic image, no server configuration needed)
+
+Docker Hub (registry for docker images)
+Docker Compose (tool to define multicontainer Docker apps),
+Docker swarm (clustering / scheduling tool)
+
+* Jenkins: automation server for creation of CI/CD pipelines
+* Ansible: software provisioning, configuration management, application deployment, docker integration
+* Github, Java/Spring Boot/Gradle
+* Acceptence Tests: Cucumber/Fitness/JBehave
+* DB: Flyway, Liquibase
+
+# Creating complete continuous deliver system
+

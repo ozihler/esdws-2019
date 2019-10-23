@@ -94,4 +94,18 @@ Docker swarm (clustering / scheduling tool)
 * DB: Flyway, Liquibase
 
 # Creating complete continuous deliver system
+## Docker
+Docker containers wrap a piece of SW in a complete filesystem that contains everything to run: code, 
+runtime, system tools, system libraries  anything can be intsalled on a server. This guarantees that the software
+will always run the same regardless of its environment
+* packaging an app into an image and run it anywhere (similar to virtualisation)
+
+## Containerization vs. Virtualization
+* Virtualisation: Virtual Machines (VirtualBox etc.): like physical machine ( see Pic ), with OS
+** Drawbacks: low performance, high resource consumption, large image size
+* Containerisation: NO OS, Apps directly interface with Host OS, no Guest OS: better performance, no waste of resources, smaller images
+** Each container has own libraries in right version, no interdependencies between containers
+
+## the need for docker
+### Environment
 

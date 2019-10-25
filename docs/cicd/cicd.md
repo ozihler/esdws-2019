@@ -188,4 +188,8 @@ Apps that should run continuously: run in background: add -d (--detach) option t
 * run a service and expose its ports to other apps
 
 ## Running Services 
+* docker run -d tomcat (access at port 8080, but its inside the container)
+* logs from -d services: docker logs {container hash}
+* access through publishing (port mapping): docker run -p (--publish) <host_port (external)>:<container_port (internal)>
 
+## Container Networks

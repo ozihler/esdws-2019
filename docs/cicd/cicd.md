@@ -193,3 +193,47 @@ Apps that should run continuously: run in background: add -d (--detach) option t
 * access through publishing (port mapping): docker run -p (--publish) <host_port (external)>:<container_port (internal)>
 
 ## Container Networks
+* docker inspect {container hash}: prints container configuration as json --> NetworkSettings
+* Formatting parts: docker inspect 6de480776ea8 -f '{{.NetworkSettings.IPAddress}}'
+* Gateway: host ip address with which container communicates, IpAddress = container IP Address => does not even need port forwarding
+* By default containers don't open routes from external systems
+
+--> change with --network (-n) flag
+* bridge (default): Network through default Docker bridge: define which ports are published
+* none: Not Network: cant connect to the server and vice versa
+* container: Network joined with the other (specified) container
+* host: Host's network stack (container's network interface is identical to host, same IP addresses, everything on container is visible outside)
+* NETWORK: User created network (using docker network create command)
+* List networks: docker network ls
+
+## Exposing Container Ports
+* EXPOSE 8080 in the Dockerfile: not published, but informs user which ports to publish
+
+### Automatic Port Assignments
+* Publish container port to an unused host port: -p <container_port>
+* Publish all exposed container ports to the unused host ports: -P (--publish-all)
+
+## Persistence: Using Docker Volumnes
+* DB as a container: where is data stored? not in the container
+* Docker Volumne == Docker's host's directory mounted inside container
+--> container can write to host's filesystem as if it was its own \[Docker container \[container drive\]---\]--Volumne--->\[host drive\]
+* Volumes clearly separate processing from data
+* Volume specification: -v <host_path>:<container_path>
+* docker run -i -t -v <h>:<c> ubuntu:18.04 /bin/bash
+* or as instruction in the docker file: VOLUME /host_directory
+
+# Using Names in Docker
+* Naming Containers: Convenience & Possibility to Automate
+* docker run -d --name tomcat tomcat
+
+# Tagging Images
+* -t is a tag --> -t <image_name> --> -t hello_world_python
+* An image can have multiple tags
+* Naming convention: <registry_address>/<image_name>:<version>
+* registry address: IP and port of the registry or the alias name
+* image_name: name of the image, e.g. ubuntu
+* version: version of the image, e.g 18.04
+
+
+
+

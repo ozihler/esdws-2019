@@ -170,8 +170,22 @@ Docker Hub: contains lots of images, official image usually the one without pref
 ** ENTRYPOINT: defines which app should be run in the executable container
 * docker build -t {new_image_name} . # inside the Dockerfile containing directory, dot (.) needed at the end!
 
-## Completing Docker App
-### Environment Variables:
+## Environment Variables:
 * Either inside Dockerfile "ENV {Env-Name} {Value}" (ENV NAME Oliver) or
 * As parameter in docker run -e NAME=Oliver hello_world_java
 --> Env in Parameter overrides Env in Dockerfile!
+
+## Docker container states
+Apps that should run continuously: run in background: add -d (--detach) option to run
+* docker run -d -t ubuntu:18.04
+* print running containers: docker ps
+* print all containers: docker ps a
+* Container states: exited, paused, restarting, and running
+** Don't pause... it freezes the processes with SIGSTOP signal
+* docker stop {container-hash}
+
+# Docker Networking
+* run a service and expose its ports to other apps
+
+## Running Services 
+

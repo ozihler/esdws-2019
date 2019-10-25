@@ -117,17 +117,23 @@ Docker swarm (clustering / scheduling tool)
 * No Guest OS in containers. Dependencies still managed per container, not shared through Host OS
 * benefits of providing app as Docker image (min. 2)?
 * higher performance, smaller resource consumption, smaller images
-* Environment, Isolation, Application Organisation, Portability,
+* Environment, Isolation, Application Organisation, Portability
 * Can Docker Deamon be run natively on Windows/macOs?
 * No, uses Virtual Machine
 * Difference between Docker image and Container?
 * like class and object: image = describes app, container = an instance of image
 * What does it mean that docker images have layers?
+* Each layer adds an image, e.g. base image is ubuntu, above an image git, above an image jdk, etc.
 * 2 Methods to create docker image?
+* commit and Dockerfile
 * command to create docker image from Dockerfile?
+* docker build -t {new_image_name} .
 * command to run docker container from docker image?
+* docker run -t <image_name>
 * what is "publishing a port"?
+* Make app accessible to/from outside
 * what is a docker volume?
+* a mounted volume from the host os that is mapped to a volume in the container. Can be used to persist files and other data.
 
 ## What is Docker?
 Docker containers wrap a piece of SW in a complete filesystem that contains everything to run: code, 
@@ -222,7 +228,7 @@ Apps that should run continuously: run in background: add -d (--detach) option t
 * docker run -i -t -v <h>:<c> ubuntu:18.04 /bin/bash
 * or as instruction in the docker file: VOLUME /host_directory
 
-# Using Names in Docker
+# Naming Containers
 * Naming Containers: Convenience & Possibility to Automate
 * docker run -d --name tomcat tomcat
 
@@ -234,6 +240,20 @@ Apps that should run continuously: run in background: add -d (--detach) option t
 * image_name: name of the image, e.g. ubuntu
 * version: version of the image, e.g 18.04
 
+# Docker cleanup
+## Cleaning up containers
+* check all containers: docker ps -a
+* delete stopped containers: docker rm
+* stop containers: docker stop <hash/name>
+* remove all stopped containers: docker rm $(docker ps --no-trunc -aq) (only on ubuntu)
+* Specify on start up that container should be removed once it finished: docker run -rm hello-world
 
+## Cleaning up images
+* check all images: docker images
+* remove an image: docker rmi <image_hash>
+* Set up cron job that executes: docker rmi $(docker images -q)
+* Don't remove images with tags: dangling parameter: docker rmi $(docker images -f "dangling=true" -q)
 
+#Docker Commands Overview
+![docker_commands](images/docker_commands.PNG "Docker Commands")
 

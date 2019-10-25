@@ -171,4 +171,7 @@ Docker Hub: contains lots of images, official image usually the one without pref
 * docker build -t {new_image_name} . # inside the Dockerfile containing directory, dot (.) needed at the end!
 
 ## Completing Docker App
-
+### Environment Variables:
+* Either inside Dockerfile "ENV {Env-Name} {Value}" (ENV NAME Oliver) or
+* As parameter in docker run -e NAME=Oliver hello_world_java
+--> Env in Parameter overrides Env in Dockerfile!

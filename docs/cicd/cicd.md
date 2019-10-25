@@ -93,10 +93,45 @@ Docker swarm (clustering / scheduling tool)
 * Acceptence Tests: Cucumber/Fitness/JBehave
 * DB: Flyway, Liquibase
 
+## Questions
+- 3 Phases of traditional Delivery Process: Development, QA, Operations
+- 2 Main Stages of CD Pipeline: CI, AAT, Config Management
+- 3 Benefits of CD: fast delivery, short feedback cycle, low-risk releases, release options
+- Automatable Tests: Unit, Acceptance, Non-Functional
+- More Integration or Unit Tests? Unit (faster, cheap)
+- DevOps? Dev-QA-Ops, everybody does everything
+- Software Tools in the Book: Docker (Host, Registry, Image), Jenkins, Gradle, Github, Java, Spring Boot, Kubernetes, Cucumber, Ansible, Flyway
+
 # Creating complete continuous deliver system
-## Docker
+* introducing docker - Docker Host \[Containerized Application\] (access app as if it ran directly on the host machine (through port forwarding/publishing (Docker)))
+* configuring Jenkins - Jenkins Master accepts build request, execution is started on one of the Jenkins Slave (agent) machines
+* CI Pipeline  - commit stage: every commit to github triggers the jenkins build --> compile/unit tests/code coverage, static analysis, etc --> notification to devs
+* Automated acceptance testing - merges docker & Jenkins w/ automated acceptance testing (aat) in Cucumber (docker registry (repo for docker image), docker host (pulls app from registry and starts it for aat))
+* Clustering w/ Kuberentes - 1 Docker Host replaced with Kubernetes Cluster, 1 standalone app replaced with two dependent containerized apps
+* Configuration Management w/ Ansible - multiple environments w/ Ansible (Testing/ Staging / Prod), deployment of the same app (kubernetes cluster) on multiple machines
+* CD Pipeline/advanced CD - deploy app to prod env w/ many instances & automatic db schema management w/ Flyway migrations
+
+# Docker
+## Questions
+* main difference between containerization (docker) and virtualization (virtualbox)?
+** No Guest OS in containers. Dependencies still managed per container, not shared through Host OS
+* benefits of providing app as Docker image (min. 2)?
+** higher performance, smaller resource consumption, smaller images
+** Environment, Isolation, Application Organisation, Portability,
+* Can Docker Deamon be run natively on Windows/macOs?
+** No, uses Virtual Machine
+* Difference between Docker image and Container?
+** like class and object: image = describes app, container = an instance of image
+* What does it mean that docker images have layers?
+* 2 Methods to create docker image?
+* command to create docker image from Dockerfile?
+* command to run docker container from docker image?
+* what is "publishing a port"?
+* what is a docker volume?
+
+## What is Docker?
 Docker containers wrap a piece of SW in a complete filesystem that contains everything to run: code, 
-runtime, system tools, system libraries  anything can be intsalled on a server. This guarantees that the software
+runtime, system tools, system libraries  anything can be installed on a server. This guarantees that the software
 will always run the same regardless of its environment
 * packaging an app into an image and run it anywhere (similar to virtualisation)
 
@@ -106,6 +141,34 @@ will always run the same regardless of its environment
 * Containerisation: NO OS, Apps directly interface with Host OS, no Guest OS: better performance, no waste of resources, smaller images
 ** Each container has own libraries in right version, no interdependencies between containers
 
-## the need for docker
-### Environment
+## Docker for Ubuntu
+page 39
+## Docker images & containers
+image = stateless collection of all files necessary to run an app with the recipe of how to run it
+container = stateful instance of an image. N containers per 1 Image possible, state changes possible to container
+Base image = usually OS, build images on top of it (e.g. ubuntu base image, add git image, add jdk image, etc.)
+--> container on top is able to download java project from github and compile & run a jar file
+Docker Hub: contains lots of images, official image usually the one without prefixes
+
+#Building images
+- real power of docker: building own docker images that wrap the program together with its environment
+* Built in language to specify instructions to be executed to build docker image: Dockerfile
+
+## Commands
+### Committing image from container from commandline
+* *docker run -i (interactive) -t ubuntu:18.04 /bin/bash* # runs ubuntu cmd --> can apt-get install things like java
+* docker commit {docker-container-hash} {name-of-new-docker-image} # creates a new docker image based on a configured container
+* docker container ls -a # list all docker containers (running and old)
+
+### Committing image from Dockerfile from cmd
+* Windows cmd new file: type nul > file-name.file-ending
+* Windows cmd edit file: notepad filename
+* Add FROM ubuntu:18.04 RUN apt-get update && apt-get install -y git && apt-get install -y openjdk-11-jdk
+** FROM: on top of which image to build an image from
+** RUN: specifies commands to run _inside_ the container
+** COPY: copies files/directory into filesystem of an image (from host to container, needs (.) at the end?)
+** ENTRYPOINT: defines which app should be run in the executable container
+* docker build -t {new_image_name} . # inside the Dockerfile containing directory, dot (.) needed at the end!
+
+## Completing Docker App
 

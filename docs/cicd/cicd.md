@@ -2,19 +2,19 @@
 ## Continuous Delivery
 * common problem: how to release implemented code quickly/safely and sustainably?
 * Solution: Continuous Delivery
-** automates manual tasks so users receive new features right after implementation
+* automates manual tasks so users receive new features right after implementation
 
 ## Traditional Delivery Process
 * See image introducing traditional delivery process
 * Three phases after requirements: development, quality assurance (tests), operations
-** shortcomings: slow delivery (outdated requirements), long feedback cycle (users, developers),
+* shortcomings: slow delivery (outdated requirements), long feedback cycle (users, developers),
 lack of automation (unpredictable releases), risky hotfixes (barely tested), stress (ops, teams), 
 poor communication (over the fence --> blaming game), shared responsibility (no team takes it), 
 lower job satisfaction
 
 ## Benefits of CD
 * Goal: change each phase of the traditional delivery process into a sequence of scripts (automated deployment pipeline/CD pipeline)
-** Benefits: fast delivery, fast feedback cycle, low-risk releases, flexible release options
+* Benefits: fast delivery, fast feedback cycle, low-risk releases, flexible release options
 
 # The automated deployment pipeline
 * Goal: automate as much as possible of the 3 phases (dev, UAT, Ops)
@@ -37,20 +37,20 @@ lower job satisfaction
 * Goal: build quality into product, not verify it later
 * most difficult to automate: requires client cooperation and creating tests in the beginning (not end)
 * What to test and where? Agile testing matrix:
-** Acceptance Testing (automated): functional requirements from business view. Stories/Examples written by clients/devs to agree on how the SW should work
-** Unit Testing (automated): help devs provide high-quality SW, minimise # bugs
-** Exploratory (manual): manual blackbox testing (to break or improve the system)
-** Non-functional testing (automated): test performance, scalability, security, etc. 
+* Acceptance Testing (automated): functional requirements from business view. Stories/Examples written by clients/devs to agree on how the SW should work
+* Unit Testing (automated): help devs provide high-quality SW, minimise # bugs
+* Exploratory (manual): manual blackbox testing (to break or improve the system)
+* Non-functional testing (automated): test performance, scalability, security, etc. 
 * Role of a QA in CD: 
-** Manual QA:  Exploratory testing
-** AUtomation QAs: help with non-functional/acceptance testing (e.g. write code to support load testing)
-** no special place, just part of the development team
+* Manual QA:  Exploratory testing
+* AUtomation QAs: help with non-functional/acceptance testing (e.g. write code to support load testing)
+* no special place, just part of the development team
 * Where are integration tests? Somewhere between acceptance/unit tests, more technical than acceptance. 
 Implemented as a separate phase in the continuous delivery pipeline
 * The testing pyramid
-** Higher up: slower
-** Acceptance test should *not* show 100% coverage (should be feature-oriented, verify selected scenarios)
-** Unit tests: cheap and fast --> strive for 100% coverage
+* Higher up: slower
+* Acceptance test should *not* show 100% coverage (should be feature-oriented, verify selected scenarios)
+* Unit tests: cheap and fast --> strive for 100% coverage
 
 ## Configuration Management
 * Tracking/controlling changes in SW and its environment
@@ -59,12 +59,12 @@ Implemented as a separate phase in the continuous delivery pipeline
 # Continuous Delivery Prerequisites
 ## Organisational Prerequisites
 * DevOps culture: Team is responsible for dev, QA, and Ops
-** Productivity is not lost due to automation of QA/Ops steps
-** Starts usually with a team that has 4 devs, 1 op, 1 QA, sitting close together
+* Productivity is not lost due to automation of QA/Ops steps
+* Starts usually with a team that has 4 devs, 1 op, 1 QA, sitting close together
 ## Client/Product Owner in the Process
 * traditionally: define requirements, answer questions, attend demos, take part in UAT
 * CD: no UAT, client writes acceptance tests (need to be more technical)
-** Requirements/User Stories can/should have some acceptance tests attached
+* Requirements/User Stories can/should have some acceptance tests attached
 ## Business Decisions
 * Business usually sets release schedule
 * Feature Toggles/manual pipeline steps may help
@@ -114,14 +114,14 @@ Docker swarm (clustering / scheduling tool)
 # Docker
 ## Questions
 * main difference between containerization (docker) and virtualization (virtualbox)?
-** No Guest OS in containers. Dependencies still managed per container, not shared through Host OS
+* No Guest OS in containers. Dependencies still managed per container, not shared through Host OS
 * benefits of providing app as Docker image (min. 2)?
-** higher performance, smaller resource consumption, smaller images
-** Environment, Isolation, Application Organisation, Portability,
+* higher performance, smaller resource consumption, smaller images
+* Environment, Isolation, Application Organisation, Portability,
 * Can Docker Deamon be run natively on Windows/macOs?
-** No, uses Virtual Machine
+* No, uses Virtual Machine
 * Difference between Docker image and Container?
-** like class and object: image = describes app, container = an instance of image
+* like class and object: image = describes app, container = an instance of image
 * What does it mean that docker images have layers?
 * 2 Methods to create docker image?
 * command to create docker image from Dockerfile?
@@ -137,9 +137,9 @@ will always run the same regardless of its environment
 
 ## Containerization vs. Virtualization
 * Virtualisation: Virtual Machines (VirtualBox etc.): like physical machine ( see Pic ), with OS
-** Drawbacks: low performance, high resource consumption, large image size
+* Drawbacks: low performance, high resource consumption, large image size
 * Containerisation: NO OS, Apps directly interface with Host OS, no Guest OS: better performance, no waste of resources, smaller images
-** Each container has own libraries in right version, no interdependencies between containers
+* Each container has own libraries in right version, no interdependencies between containers
 
 ## Docker for Ubuntu
 page 39
@@ -164,10 +164,10 @@ Docker Hub: contains lots of images, official image usually the one without pref
 * Windows cmd new file: type nul > file-name.file-ending
 * Windows cmd edit file: notepad filename
 * Add FROM ubuntu:18.04 RUN apt-get update && apt-get install -y git && apt-get install -y openjdk-11-jdk
-** FROM: on top of which image to build an image from
-** RUN: specifies commands to run _inside_ the container
-** COPY: copies files/directory into filesystem of an image (from host to container, needs (.) at the end?)
-** ENTRYPOINT: defines which app should be run in the executable container
+* FROM: on top of which image to build an image from
+* RUN: specifies commands to run _inside_ the container
+* COPY: copies files/directory into filesystem of an image (from host to container, needs (.) at the end?)
+* ENTRYPOINT: defines which app should be run in the executable container
 * docker build -t {new_image_name} . # inside the Dockerfile containing directory, dot (.) needed at the end!
 
 ## Environment Variables:
@@ -181,7 +181,7 @@ Apps that should run continuously: run in background: add -d (--detach) option t
 * print running containers: docker ps
 * print all containers: docker ps a
 * Container states: exited, paused, restarting, and running
-** Don't pause... it freezes the processes with SIGSTOP signal
+* Don't pause... it freezes the processes with SIGSTOP signal
 * docker stop {container-hash}
 
 # Docker Networking

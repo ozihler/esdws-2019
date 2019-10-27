@@ -281,6 +281,7 @@ How to attach slaves to masters?
 
 This leads to 4 configuration possibilities:
 
+# No Scaling Solutions
 ## Permanent agents: permanently add specific agent nodes.
 manage jenkins > manage nodes > new node
 * name: unique agent name
@@ -301,7 +302,70 @@ Update # executors on master to 0 so it does not execute any builds and only ser
 
 * Problem: no virtualisation: each slave can only handle a certain type of build (specified by the label)
 
-## permanent docker agents
-## Jenkins swarm agents
-## dynamically provisioned docker agents
+## Permanent Docker Agents
+* Only difference to before: each slave machine needs Docker
+* Define the docker image in each pipeline:
+```groovy
+pipeline {
+    agent {
+        docker {
+            image 'openjdk:8-jdk-alpine'
+        }   
+    }
+}
+```
+--> Jenkins slave _starts container_ from image, then executes pipeline steps _inside_ this container
+----> No need to configure slaves separately depending on the project type
+* no slave label needed, just define appropriate docker image in pipeline script
 
+# Scaling Solutions
+## Jenkins swarm agents
+Manage Jenkins > manage plugins > install \"self-organizing swarm plug-in modules\"
+* run swarm-client.jar on every jenkins slave (get it from the jenkins plugin side)
+* attach it as follows:
+```text
+java -jar swarm-client.jar 
+-master <jenkins_master_url> 
+-username <jenkins_master_user> 
+-password <jenkins_master_password>
+- name jenkins-swarm-slave-1 
+```
+
+* can also be configured using a Docker images
+* dynamic scalling w/ Kubernetes or Docker Swarm possible
+
+## Dynamically Provisioned Docker Agents
+* Dynamically create new agent each time a build is started 
+* most flexible solution (number of slaves adjusts to number of builds dynamically)
+
+### Configure as follows
+* install docker plugin, then
+1. Open manage jenkins
+2. click "configure system"
+3. go to cloud section
+4. click "add new cloud" > choose docker
+5. Fill in docker agent details
+6. at least Docker host URL needs to be set (address of the docker host machine where agents will be run)
+7. docker agent templates > select docker template > fill in slave details 
+* docker image: evarga/jenkins-slave (for java 8 apps)
+* instance capa: max # of agents running at the same time (max 10)
+
+## How does it work?
+1. job starts > master runs new container of jenkins-slave image on slave docker host
+2. jenkins-slave has Ubuntu image with sshd server installed
+3. jenkins master adds agent to agent list
+4. agent is accessed with ssh communication to perform the build
+5. after build master stops and removes slave container
+
+Advantages:
+* Automatic agent life cycle (create, add, delete is automated)
+* scalability (slave docker host could be cluster composed of multiple machines, no jenkins changes)
+
+# Custom Jenkins images
+
+## Building Jenkins Slave
+* Env adjusted to the project to build --> any library, tool, testing framework needed by the project
+1. Create Dockerfile
+2. Build image
+3. Push image to registry
+4. change agent config on master

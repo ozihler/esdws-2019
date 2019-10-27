@@ -74,7 +74,7 @@ Implemented as a separate phase in the continuous delivery pipeline
 Requirements:
 * automated build, test, package, deploy operations: all need to be automatable
 * Quick pipeline execution: 5 - 15 mins
-* QUick failure recovery
+* Quick failure recovery
 * Zero-downtime deployment: release many times a day, not possible to be down
 * Trunk-based development: devs check into master branch regularly (else integration / releases are rare)
 * More on process: Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation (Jez Humble/David Farley)
@@ -99,7 +99,7 @@ Docker swarm (clustering / scheduling tool)
 - 3 Benefits of CD: fast delivery, short feedback cycle, low-risk releases, release options
 - Automatable Tests: Unit, Acceptance, Non-Functional
 - More Integration or Unit Tests? Unit (faster, cheap)
-- DevOps? Dev-QA-Ops, everybody does everything
+- DevOps? Dev-QA-Ops, everybody does everything, Mindset
 - Software Tools in the Book: Docker (Host, Registry, Image), Jenkins, Gradle, Github, Java, Spring Boot, Kubernetes, Cucumber, Ansible, Flyway
 
 # Creating complete continuous deliver system
@@ -257,3 +257,32 @@ Apps that should run continuously: run in background: add -d (--detach) option t
 #Docker Commands Overview
 ![docker_commands](images/docker_commands.PNG "Docker Commands")
 
+#Jenkins
+docker run -p 6666:8080 -v C:\\\\Users\\olzi\\docker\\jenkins:/var/jenkins_home --name jenkins  jenkins/jenkins:2.150.3 2.150.3
+
+# Master
+* one master that gets more performant as required (vertical scaling) or multiple (even one master per team, horizontal scaling)
+* manages build environment (slaves), receives http requests, build triggers, and sends out notifications
+
+# Test and production envs
+* always have two jenkins instances test and production that barely differ, to test some new plugins etc. on test
+
+# Ways of communication between slaves/master
+* SSH protocol or a specific Java program for communications inside firewall
+
+# Slaves/Agents
+* Able to execute a build
+* better generic than specific
+
+# Setting agents
+How to attach slaves to masters? 
+* static vs dynamic: fix number of slaves assigned to master vs number varies as needed (better)
+* specific vs general-purpose: e.g. can only run Java 7 vs docker host with pipeline inside docker container
+
+This leads to 4 configuration possibilities:
+* Permanent agents
+* permanent docker agents
+* Jenkins swarm agents
+* dynamically provisioned docker agents
+
+#

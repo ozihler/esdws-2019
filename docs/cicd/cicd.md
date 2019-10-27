@@ -280,9 +280,28 @@ How to attach slaves to masters?
 * specific vs general-purpose: e.g. can only run Java 7 vs docker host with pipeline inside docker container
 
 This leads to 4 configuration possibilities:
-* Permanent agents
-* permanent docker agents
-* Jenkins swarm agents
-* dynamically provisioned docker agents
 
-#
+## Permanent agents: permanently add specific agent nodes.
+manage jenkins > manage nodes > new node
+* name: unique agent name
+* description: human readable description
+* \# number of executors: \# of concurrent builds that can be run on the slave
+* remote root directory: dedicated directory on slave machine the agent can use to run build jobs (e.g. /var/jenkins). Not critical as most important data is sent back to master
+* Labels: tags to match specific builds (e.g. Java 8 builds, AAT builds)
+* Usage: agent should be used for matched labels or any builds
+* launch method: 
+       
+       via Java Web Start (agent establishes connection), 
+       via execution of command on the master (starts slave, ssh <slave_hostname> java -jar ~/bin/slave.jar)
+       via ssh (master connects to the slave via ssh protocol)
+
+* Availablity: should agent be up all the time or master can turn it off?
+
+Update # executors on master to 0 so it does not execute any builds and only serves as UI and coordinator
+
+* Problem: no virtualisation: each slave can only handle a certain type of build (specified by the label)
+
+## permanent docker agents
+## Jenkins swarm agents
+## dynamically provisioned docker agents
+

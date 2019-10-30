@@ -365,7 +365,54 @@ Advantages:
 
 ## Building Jenkins Slave
 * Env adjusted to the project to build --> any library, tool, testing framework needed by the project
+4 Steps:
 1. Create Dockerfile
 2. Build image
 3. Push image to registry
 4. change agent config on master
+
+* Build on top of existing evarga/jenkins-slave (dynamically provisioned docker agent) image e.g.
+1. Dockerfile
+```
+FROM everga/jenkins-slave
+RUN apt-get update && apt-get install -y python
+```
+2. Build image
+```
+docker build -t [dockerhub-name]/jenkins-slave-python .
+```
+3. Push image to registry
+```
+docker push [dockerhub-name]/jenkins-slave-python (needs account on docker hub)
+```
+4. Change agent config on master: from evarga/jenkins-slave to \[dockerhub-name\]/jenkins-slave-python (needs credentials in master if its a private dockerhub image)
+
+## Building Jenkins Master
+* e.g., when you want a base master image for horizontal scaling that each team can use to build its own master from
+
+* how? add groovy script to docker file to manipulate Jenkins config
+
+--> manipulates config.xml
+
+1. Groovy script 'executors.groovy'
+```Groovy
+import jenkins.model.*
+Jenkins.instance.setNumExecutors(5) //Jenkins api: http://javadoc.jenkins.io/
+```
+2. Dockerfile
+``` text
+FROM jenkins/jenkins:2.150.3
+COPY executors.groovy /user/share/jenkins/ref/init.groovy.d/executors.groovy
+RUN /usr/local/bin/install-plugin.sh docker-plugin
+```
+3. Build image
+``` text
+docker build -t [dockerhub-name]/jenkins-master .
+```
+
+(4. Push to registry (optional))
+``` text
+docker push [dockerhub-name]/jenkins-maste
+```
+
+# Backup: use plugins

@@ -444,6 +444,11 @@ AAT specifics:
 # Pulling the image
 * docker pull ozihler/ubuntu_with_python:1
 
+# Run jenkins with mounted volume for jenkins_home
+```
+docker run --privileged -p 33333:8080 -v C:\Users\olzi\docker\dockerregistry\buildimage\jenkins_home:/var/jenkins_home jenkins/jenkins:2.150.3
+```
+
 # Adding Docker File
 * Dockerfile
 ```

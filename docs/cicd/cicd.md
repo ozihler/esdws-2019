@@ -416,3 +416,46 @@ docker push [dockerhub-name]/jenkins-maste
 ```
 
 # Backup: use plugins
+
+# Acceptance Testing
+AAT specifics:
+* User-facing (written with user --> understanding of tech/nontech needed)
+* Dependencies Integration (complete system to test if all works fine together)
+* Staging environment (same env as prod for tests!)
+* App Identity (same binary run everywhere --> no risk of different building envs --> e.g. build docker image once and distribute (store, version) it through docker registry)
+* Relevance and Consequences (an accepted App should be ready for release from user perspective)
+
+# Docker Registry
+* Stores Docker images (publish & retrieve images) == artifact repository
+
+# Artifact Repository
+* Most popular: JFrog Artifactory, Sonatype Nexus
+* guarantees that same binary is used throughout all pipeline steps
+
+# Setting up private repo
+* see location 2608
+
+# Pushing an image
+* <registry_address>/<image_name>:<tag>
+* registry_address: username for dockerhub, domain name/ip address with port for private registry
+* tag: image/app version
+* Access restricted repo: docker login --username <username> --password <password>
+
+# Pulling the image
+* docker pull ozihler/ubuntu_with_python:1
+
+# Adding Docker File
+* Dockerfile
+```
+FROM openjdk:8-jre
+COPY build/libs/calculator-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+
+* Build app:
+```
+gradlew build
+docker build -t calculator .
+docker run -p 8080:8080 --name calculator calculator
+```
+

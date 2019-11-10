@@ -463,4 +463,24 @@ gradlew build
 docker build -t calculator .
 docker run -p 8080:8080 --name calculator calculator
 ```
+* access to docker.sock of host
+https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket
 
+https://stackoverflow.com/questions/51342810/how-to-fix-dial-unix-var-run-docker-sock-connect-permission-denied-when-gro
+
+* Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/json: dial unix /var/run/docker.sock: connect: permission denied
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo setfacl -m user:ozihler:rw /var/run/docker.sock
+```
+* Install more on jenkins docker: https://github.com/jenkinsci/docker#installing-more-tools
+
+* script.sh docker not found ?
+```
+docker run --name jenkins -p 8080:8080 -p 50000:50000
+-v /var/run/docker.sock:/var/run/docker.sock
+-v $(which docker):/usr/bin/docker
+-v /home/jenkins_home:/var/jenkins_home
+jenkins/jenkins
+```

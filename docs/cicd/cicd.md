@@ -495,3 +495,6 @@ docker run
 docker-master
 
 ```
+```
+pwd # print current directory
+```

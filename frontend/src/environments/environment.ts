@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   name: `dev`,
-  baseUrl: `http://localhost:5000/api`
+  baseUrl: `http://192.168.1.25:5000/api`
 };
 
 /*

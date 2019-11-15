@@ -8,6 +8,7 @@ pipeline {
         pollSCM('* * * * *')
     }
     stages {
+    /*
         stage("Compile") {
             steps {
                 sh "chmod +x gradlew"
@@ -20,7 +21,7 @@ pipeline {
                 sh "./gradlew test"
             }
         }
-
+*/
         stage("Package") {
             steps {
                 sh "./gradlew build"

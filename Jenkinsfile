@@ -49,6 +49,8 @@ pipeline {
 
         stage("Deploy to staging") {
             steps {
+                sh "docker stop esdws"
+                sh "docker rm --force esdws"
                 sh "docker run -d --rm -p 8091:5000 --name esdws ozihler/esdws:1"
 
             }

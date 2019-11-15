@@ -44,7 +44,7 @@ pipeline {
 
         stage("Deploy to staging") {
             steps {
-                sh "docker run -d --rm -p 8091:8080 --name calculator ozihler/esdws:1"
+                sh "docker run -d --rm -p 8091:5000 --name esdws ozihler/esdws:1"
 
             }
         }

@@ -8,10 +8,14 @@ pipeline {
         pollSCM('* * * * *')
     }
     stages {
+        stage("Allow gradlew access") {
+            steps {
+                sh "chmod +x gradlew"
+            }
+        }
     /*
         stage("Compile") {
             steps {
-                sh "chmod +x gradlew"
                 sh "./gradlew compileJava"
             }
         }

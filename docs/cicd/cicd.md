@@ -498,3 +498,8 @@ docker-master
 ```
 pwd # print current directory
 ```
+Log into synology:
+```
+putty > IP address of nas, port 22 > type in username/pw
+```
+

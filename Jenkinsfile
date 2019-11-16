@@ -49,7 +49,7 @@ pipeline {
 
         stage("Deploy to staging") {
             steps {
-                sh "docker stop /esdws || true && docker rm /esdws || true && docker run -d --rm -p 8091:5000 --name esdws ozihler/esdws:1"
+                sh "docker stop /esdws || true && docker run -d --rm -p 8091:5000 --name esdws ozihler/esdws:1"
 
             }
         }

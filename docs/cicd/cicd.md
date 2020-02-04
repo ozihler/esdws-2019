@@ -490,6 +490,10 @@ docker-master
 ```
 Clean up if you run out of space: sudo find / -xdev -printf '%h\n' | sort | uniq -c | sort -k 1 -n
 Or simply go to cd /var/jenkins_home and sudo rm -rf all the folders inside...
+
+docker container stop xyzcontainerid
+Delete all unused volumes, containers, images, etc.: sudo docker system prune
+
 ```
 pwd # print current directory
 ```

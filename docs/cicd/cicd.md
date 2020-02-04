@@ -488,6 +488,8 @@ sudo docker run --rm -ti --privileged -p 8090:8080 -p 50000:50000 -v /var/run/do
 docker-master
 
 ```
+Clean up if you run out of space: sudo find / -xdev -printf '%h\n' | sort | uniq -c | sort -k 1 -n
+Or simply go to cd /var/jenkins_home and sudo rm -rf all the folders inside...
 ```
 pwd # print current directory
 ```
